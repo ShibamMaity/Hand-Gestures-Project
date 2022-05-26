@@ -27,6 +27,35 @@ function modelLoaded() {
     console.log('Model Loaded!');
 }
 
+function check()
+{
+    img = document.getElementById('captured_image');
+    classifier.classify(img, gotResult);
+}
+
+function gotResult(error, results) {
+    if (error) {
+        console.error(error);
+    } else {
+        console.log(results);
+        document.getElementById("result_gesture_name").innerHTML = results[0].label;
+        gesture = results[0].label;
+        speak();
+        if(results[0].label == "amazing")
+        {
+            document.getElementById("update_gesture").innerHTML = "&#128076;";
+        }
+        if(results[0].label == "best")
+        {
+            document.getElementById("update_gesture").innerHTML = "&#128077;";
+        }
+        if(results[0].label == "victory")
+        {
+            document.getElementById("update_gesture").innerHTML = "&#9996;";
+        }
+    }
+}
+
 function speak(){
     var synth = window.speechSynthesis;
     speak_data = "The meaning of this gesture is " + prediction;
